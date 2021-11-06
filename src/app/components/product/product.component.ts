@@ -30,6 +30,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productForm = this.formBuilder.group({      
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
+      cantidad: ['', Validators.required],
+      imagenproducto: ['', Validators.required],
       estado: ['A']
     });
     this.findAllProduct();
@@ -39,6 +41,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     let columnDefinitions = [      
       { def: 'nombre', show: true },
       { def: 'descripcion', show: true },
+      { def: 'cantidad', show: true },
+      { def: 'imagenproducto', show: true },
       { def: 'estado', show: true },
       { def: 'createdAt', show: true },
       { def: 'detalle', show: true },

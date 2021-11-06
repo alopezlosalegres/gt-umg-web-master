@@ -17,7 +17,15 @@
         <ng-container matColumnDef="descripcion">
             <th mat-header-cell *matHeaderCellDef> Descripcion </th>
             <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
-        </ng-container>        
+        </ng-container>  
+        <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+        </ng-container> 
+        <ng-container matColumnDef="imagenproducto">            
+            <th mat-header-cell *matHeaderCellDef> Imagen Producto </th>
+            <td mat-cell *matCellDef="let element"><img style="width:250px; height:150px;" [src]="element.imagenproducto"></td>
+        </ng-container>       
         <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
             <td mat-cell *matCellDef="let element"> {{element.estado == "A" ? "Activo" : "Inactivo"}} </td>
@@ -90,7 +98,25 @@
                                 <mat-icon matSuffix>person</mat-icon>
                             </mat-form-field>
                         </div>
-                    </div>                   
+                    </div>   
+                    <div class="row">                       
+                        <div class="col-md">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Cantidad</mat-label>
+                                <input matInput placeholder="Ingrese cantidad" formControlName="cantidad">
+                                <mat-icon matSuffix>person</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>  
+                    <div class="row">                       
+                        <div class="col-md">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Link Imagen</mat-label>
+                                <input matInput placeholder="Ingrese link imagen" formControlName="imagenproducto">
+                                <mat-icon matSuffix>person</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>                  
                     <div class="row" *ngIf="action != 'Guardar'">
                         <div class="col-md">
                             <label>Estado</label>
