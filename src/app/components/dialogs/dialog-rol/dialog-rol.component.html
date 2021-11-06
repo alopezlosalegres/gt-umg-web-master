@@ -1,0 +1,12 @@
+<form [formGroup]="dialogForm" class="form-horizontal" autocomplete="off">
+  <h4 class="text-center"><strong>Prodima</strong></h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Selecciona un rol</mat-label>    
+  </mat-form-field>
+  <div class="row text-center">
+    <div class="col-12">
+      <button type="button" class="btn btn-customizer" [disabled]="dialogForm.invalid"
+        (click)="inRol()">Aceptar</button>
+    </div>
+  </div>
+</form>

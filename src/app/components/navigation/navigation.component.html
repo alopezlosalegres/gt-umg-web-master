@@ -1,0 +1,48 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>
+            <div class="title-toolbar" routerLink="statistics">Market</div>
+        </mat-toolbar>
+        <mat-nav-list class="color-list">
+            <li class="nav-item"><a class="nav-link" routerLink="product">Producto</a></li>
+            <!--<span *ngFor="let item of rolModule">
+                <a mat-list-item (click)="goToPage(item.module.nombre)" routerLink="{{item.module.link}}"
+                    routerLinkActive="active">
+                    <button mat-icon-button>
+                        <mat-icon class="icon-material-white">{{item.module.icono}}</mat-icon>
+                    </button>
+                    <span> {{item.module.nombre}}</span>
+                </a>
+                <mat-divider></mat-divider>
+            </span>-->
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span class="aline-right-nav"></span>
+            <div class="option-toolbar">
+                <span>{{user.nombre}}</span>
+                <button mat-icon-button class="background-icon">
+                    <mat-icon class="icon-material-blue">account_circle</mat-icon>
+                </button>
+            </div>
+            <div class="option-toolbar" (click)="signOff()">
+                <span>Salir</span>
+                <button mat-icon-button>
+                    <mat-icon class="icon-material-blue">login</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 padding-container">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

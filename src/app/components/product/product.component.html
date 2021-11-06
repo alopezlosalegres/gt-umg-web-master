@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-12 text-right">
+        <button mat-fab color="primary" aria-label="Agregar" (click)="showModal('Guardar')">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...">
+</mat-form-field>
+<div class="mat-elevation-z2">
+    <table mat-table [dataSource]="dataSource">        
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado == "A" ? "Activo" : "Inactivo"}} </td>
+          </ng-container>
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> Fecha de creación </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdAt | date: "dd/MM/yyyy"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="detalle">
+            <th mat-header-cell *matHeaderCellDef> Detalle </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" (click)="showModal('Detalle', element)">
+                    <mat-icon>list_alt</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="primary" (click)="showModal('Editar', element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button color="warn" (click)="showAlertDelete(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="getDisplayedColumns(); sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+    </table>
+    <div class="p-2" *ngIf="dataSource && dataSource.data.length === 0">
+        No se encontraron Productos.
+    </div>
+    <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+</div>
+<!--Modal-->
+<div class="modal fade" id="modalProduct" data-backdrop="static" data-keyboard="false" tabindex="1"
+    aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center">
+                    <span class="modal-title">{{action}} Producto</span>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="productForm" class="form-horizontal" autocomplete="off">
+                <div class="modal-body">
+                    <div class="row">                       
+                        <div class="col-md">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput placeholder="Ingrese nombre" formControlName="nombre">
+                                <mat-icon matSuffix>person</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">                       
+                        <div class="col-md">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Descripcion</mat-label>
+                                <input matInput placeholder="Ingrese descripcion" formControlName="descripcion">
+                                <mat-icon matSuffix>person</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>                   
+                    <div class="row" *ngIf="action != 'Guardar'">
+                        <div class="col-md">
+                            <label>Estado</label>
+                            <br>
+                            <mat-slide-toggle color="primary" formControlName="estado">{{productForm.value.estado ? "Activo" : "Inactivo"}}</mat-slide-toggle>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="action != 'Detalle'" type="button" class="btn btn-customizer"
+                        [disabled]="productForm.invalid" (click)="executeAction()">{{action}}</button>
+                    <button type="button" class="btn btn-danger"
+                        data-dismiss="modal">{{action != 'Detalle' ? 'Cancelar': 'Cerrar' }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
